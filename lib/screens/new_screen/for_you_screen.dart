@@ -1,14 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../utils.dart';
 
 class ForYouScreen extends StatefulWidget {
-  final List<String> videoUrls;
+  final List<String> videoAssets;
 
-  const ForYouScreen({Key? key, required this.videoUrls}) : super(key: key);
+  const ForYouScreen({Key? key, required this.videoAssets}) : super(key: key);
 
   @override
   State<ForYouScreen> createState() => _ForYouScreenState();
@@ -25,10 +23,10 @@ class _ForYouScreenState extends State<ForYouScreen> {
     _currentIndex = 0;
     _pageController = PageController(initialPage: _currentIndex);
     _videoControllers = List.generate(
-      widget.videoUrls.length,
+      widget.videoAssets.length,
       (index) {
         final controller =
-            VideoPlayerController.network(widget.videoUrls[index]);
+            VideoPlayerController.asset(widget.videoAssets[index]);
         controller.addListener(_onControllerUpdated);
         controller.initialize().then((_) {
           setState(() {});
@@ -42,6 +40,11 @@ class _ForYouScreenState extends State<ForYouScreen> {
 
   void _onControllerUpdated() {
     setState(() {});
+    final controller = _videoControllers[_currentIndex];
+    if (controller.value.position >= controller.value.duration) {
+      controller.seekTo(Duration.zero);
+      controller.play();
+    }
   }
 
   void _togglePlayPause() {
@@ -101,6 +104,25 @@ class _ForYouScreenState extends State<ForYouScreen> {
     );
   }
 
+  Widget _buildVideoPlayer(int index) {
+    final VideoPlayerController controller = _videoControllers[index];
+    final double aspectRatio = controller.value.aspectRatio;
+    if (aspectRatio > 0.9) {
+      return RotatedBox(
+        quarterTurns: 1,
+        child: AspectRatio(
+          aspectRatio: 1.9999,
+          child: VideoPlayer(controller),
+        ),
+      );
+    } else {
+      return AspectRatio(
+        aspectRatio: .47,
+        child: VideoPlayer(controller),
+      );
+    }
+  }
+
   void _showBottomModalSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -157,26 +179,6 @@ class _ForYouScreenState extends State<ForYouScreen> {
     );
   }
 
-  Widget _buildVideoPlayer(int index) {
-    final VideoPlayerController controller = _videoControllers[index];
-    final double aspectRatio = controller.value.aspectRatio;
-    log('${aspectRatio} + ${[index]}');
-    if (aspectRatio > 0.9) {
-      return RotatedBox(
-        quarterTurns: 1,
-        child: AspectRatio(
-          aspectRatio: 1.99,
-          child: VideoPlayer(controller),
-        ),
-      );
-    } else {
-      return AspectRatio(
-        aspectRatio: aspectRatio,
-        child: VideoPlayer(controller),
-      );
-    }
-  }
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -192,6 +194,41 @@ class _ForYouScreenState extends State<ForYouScreen> {
 
 
 
+
+/* for videoUrl  */
+// @override
+//  void initState() {
+//    super.initState();
+//    _currentIndex = 0;
+//    _pageController = PageController(initialPage: _currentIndex);
+//    _videoControllers = List.generate(
+//      widget.videoUrls.length,
+//      (index) {
+//        final controller =
+//            VideoPlayerController.network(widget.videoUrls[index]);
+//        controller.addListener(_onControllerUpdated);
+//        controller.initialize().then((_) {
+//          setState(() {});
+
+//          if (index == _currentIndex) controller.play();
+//        });
+//        return controller;
+//      },
+//    );
+//  }
+
+//  void _onControllerUpdated() {
+//    setState(() {});
+//  }
+
+//  void _togglePlayPause() {
+//    final controller = _videoControllers[_currentIndex];
+//    if (controller.value.isPlaying) {
+//      controller.pause();
+//    } else {
+//      controller.play();
+//    }
+//  }
 
 
   //Widget _buildVideoPlayer(int index) {

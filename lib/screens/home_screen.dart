@@ -62,10 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => ForYouScreen(
-                                    videoUrls: [
-                                      //'assets/videos/video_1.mp4',
-                                      //'assets/videos/video_2.mp4',
-                                      //'assets/videos/video_3.mp4',
+                                    videoAssets: [
+                                      'assets/videos/video_1.mp4',
+                                      'assets/videos/video_3.mp4',
+                                      'assets/videos/video_4.mp4',
+                                      'assets/videos/video_2.mp4',
+                                      'assets/videos/video_5.mp4',
+                                      'assets/videos/video_6.mp4',
                                     ],
                                   )));
                       setState(() {
@@ -121,17 +124,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => ForYouScreen(
-                                      videoUrls: [
-                                        //'assets/videos/video_1.mp4',
-                                        //'assets/videos/video_2.mp4',
-                                        //'assets/videos/video_3.mp4',
+                                      videoAssets: [
+                                        'assets/videos/video_1.mp4',
+                                        'assets/videos/video_3.mp4',
+                                        'assets/videos/video_4.mp4',
+                                        'assets/videos/video_2.mp4',
+                                        'assets/videos/video_5.mp4',
+                                        'assets/videos/video_6.mp4',
 
-                                        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-                                        'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
-                                        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
-                                        'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-                                        'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8',
-                                        'https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8',
+                                        //'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                                        //'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+                                        //'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+                                        //'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                                        //'https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_fmp4/master.m3u8',
+                                        //'https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8',
                                       ],
                                     ),
                                   ),
