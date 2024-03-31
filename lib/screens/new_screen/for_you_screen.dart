@@ -59,6 +59,7 @@ class _ForYouScreenState extends State<ForYouScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: GestureDetector(
         onTap: _togglePlayPause,
         child: PageView.builder(
@@ -70,25 +71,23 @@ class _ForYouScreenState extends State<ForYouScreen> {
             setState(() {
               _currentIndex = index;
             });
-
             _videoControllers[_currentIndex].play();
           },
           itemBuilder: (context, index) {
             return Stack(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               children: <Widget>[
-                _buildVideoPlayer(index),
-                VideoProgressIndicator(
-                  _videoControllers[index],
-                  allowScrubbing: true,
+                AspectRatio(
+                  aspectRatio: _videoControllers[index].value.aspectRatio,
+                  child: VideoPlayer(_videoControllers[index]),
                 ),
                 Positioned(
-                  bottom: 200,
+                  bottom: 500,
                   right: 8,
                   child: IconButton(
                     icon: Icon(
                       Icons.list,
-                      color: Colors.white,
+                      color: Colors.red,
                       size: 30,
                     ),
                     onPressed: () {
@@ -104,24 +103,25 @@ class _ForYouScreenState extends State<ForYouScreen> {
     );
   }
 
-  Widget _buildVideoPlayer(int index) {
-    final VideoPlayerController controller = _videoControllers[index];
-    final double aspectRatio = controller.value.aspectRatio;
-    if (aspectRatio > 0.9) {
-      return RotatedBox(
-        quarterTurns: 1,
-        child: AspectRatio(
-          aspectRatio: 1.9999,
-          child: VideoPlayer(controller),
-        ),
-      );
-    } else {
-      return AspectRatio(
-        aspectRatio: .47,
-        child: VideoPlayer(controller),
-      );
-    }
-  }
+  //Widget _buildVideoPlayer(int index) {
+  //  final VideoPlayerController controller = _videoControllers[index];
+  //  final double aspectRatio = controller.value.aspectRatio;
+  //  log('${aspectRatio}   + ${index++}');
+  //  if (aspectRatio > 0.9) {
+  //    return RotatedBox(
+  //      quarterTurns: 1,
+  //      child: AspectRatio(
+  //        aspectRatio: 16 / 9,
+  //        child: VideoPlayer(controller),
+  //      ),
+  //    );
+  //  } else {
+  //    return AspectRatio(
+  //      aspectRatio: 9 / 16,
+  //      child: VideoPlayer(controller),
+  //    );
+  //  }
+  //}
 
   void _showBottomModalSheet(BuildContext context) {
     showModalBottomSheet(

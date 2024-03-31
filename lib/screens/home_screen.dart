@@ -22,6 +22,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var h = MediaQuery.of(context).size.height;
+    var w = MediaQuery.of(context).size.width;
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -178,15 +180,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        Text(
-                          'Drive into drama',
-                          style: TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.grey,
-                          ),
-                        ),
+                        //Text(
+                        //  'Drive into drama',
+                        //  style: TextStyle(
+                        //    fontSize: 10.0,
+                        //    color: Colors.grey,
+                        //  ),
+                        //),
                         SizedBox(
-                          height: 8.0,
+                          height: 5.0,
                         ),
                         Expanded(
                           flex: 1,
@@ -195,8 +197,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: 8,
                             itemBuilder: (context, index) {
                               return Container(
-                                height: 100,
-                                width: 100,
+                                height: h * 1,
+                                width: w * .3,
                                 child: Column(
                                   children: [
                                     Padding(
@@ -244,9 +246,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.white,
                           ),
                         ),
-                        SizedBox(
-                          height: 8.0,
-                        ),
+                        //SizedBox(
+                        //  height: 5.0,
+                        //),
                         Expanded(
                           flex: 1,
                           child: ListView.builder(
@@ -254,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: 8,
                             itemBuilder: (context, index) {
                               return Container(
-                                height: 100,
+                                height: 10,
                                 width: 100,
                                 child: Column(
                                   children: [
